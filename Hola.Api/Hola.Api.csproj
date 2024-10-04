@@ -45,7 +45,6 @@
       <ProjectReference Include="..\DatabaseCore.Infrastructure\DatabaseCore.Infrastructure.csproj" />
       <ProjectReference Include="..\EntitiesCommon\EntitiesCommon.csproj" />
       <ProjectReference Include="..\Hola.Core\Hola.Core.csproj" />
-      <ProjectReference Include="..\Hola.GoogleCloudStorage\Hola.GoogleCloudStorage.csproj" />
       <ProjectReference Include="..\SPNApplication\SPNApplication.csproj" />
     </ItemGroup>
 
@@ -62,9 +61,6 @@
 
     <ItemGroup>
       <Content Update="credentials.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-      <Content Update="key.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

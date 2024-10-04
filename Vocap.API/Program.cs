@@ -66,8 +66,17 @@ namespace Vocap.API
                     .AddTimeout(TimeSpan.FromSeconds(100));
             });
 
-            var app = builder.Build();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .AllowAnyOrigin() // Or specify origins using WithOrigins("http://example.com")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
 
+            var app = builder.Build();
+            app.UseCors("CorsPolicy");
 
             var env = app.Environment;
 
@@ -78,6 +87,7 @@ namespace Vocap.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseMiddleware<AuthMiddleware>();
 
             app.UseHttpsRedirection();

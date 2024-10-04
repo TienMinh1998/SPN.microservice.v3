@@ -16,6 +16,7 @@ namespace User.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddHostedService<AddVocapComsumer>();
+            builder.Services.AddCors();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,7 +27,9 @@ namespace User.API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(
+        options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod()
+    );
             app.UseAuthorization();
 
 

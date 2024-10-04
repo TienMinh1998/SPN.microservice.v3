@@ -35,5 +35,10 @@ namespace Vocap.Infrastructure.Repositories
         {
             return await _context.Vocabularies.Where(v => v.DaftWord == word).ToListAsync();
         }
+
+        public async Task<Vocabulary?> GetVocabularyByString(string vocabulary)
+        {
+            return await _context.Vocabularies.FirstOrDefaultAsync(x => x.DaftWord.Equals(vocabulary));
+        }
     }
 }

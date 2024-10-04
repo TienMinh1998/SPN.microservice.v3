@@ -1,18 +1,28 @@
-﻿using Vocap.Domain.AggregatesModel.VocabularyAggreate;
+﻿using Vocap.API.Middleware;
+using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 
 namespace Vocap.API.Application.Commands
 {
     public class CreateVocabularyCommandHandler : IRequestHandler<CreateVocabularyCommand, bool>
     {
         private readonly IVocabularyRepository _vocabularyRepository;
+        private ILogger<CreateVocabularyCommandHandler> _logger;
 
-        public CreateVocabularyCommandHandler(IVocabularyRepository vocabularyRepository)
+        public CreateVocabularyCommandHandler(IVocabularyRepository vocabularyRepository, ILogger<CreateVocabularyCommandHandler> logger)
         {
             _vocabularyRepository = vocabularyRepository;
+            _logger = logger;
         }
 
         public async Task<bool> Handle(CreateVocabularyCommand request, CancellationToken cancellationToken)
         {
+            var oldVocabulary = await _vocabularyRepository.GetVocabularyByString(request.Name);
+            if (oldVocabulary is { })
+            {
+                _logger.LogInformation($"{request.Name} is available");
+                throw new BusinessLogicException("vocabulary is available");
+            }
+
             Vocabulary? newVocap = new Vocabulary(new CamVocabulary(request.Name), request.Desc);
             newVocap.UpdateWorkFromDiction();
 

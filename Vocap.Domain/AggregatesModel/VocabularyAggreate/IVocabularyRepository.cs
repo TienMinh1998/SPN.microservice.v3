@@ -14,5 +14,12 @@ namespace Vocap.Domain.AggregatesModel.VocabularyAggreate
         Task<Vocabulary?> GetVocabularyById(int Id);
 
         Task<IEnumerable<Vocabulary>> GetAllByWork(string word);
+
+        /// <summary>
+        /// get vocabulary
+        /// </summary>
+        /// <param name="vocabulary"></param>
+        /// <returns></returns>
+        Task<Vocabulary?> GetVocabularyByString(string vocabulary);
     }
 }
