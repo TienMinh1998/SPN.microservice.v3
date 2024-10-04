@@ -25,13 +25,16 @@ namespace Vocap.API.Middleware
             {
                 _logger.LogError(ex.Message);
                 string errorMessage = $"Error occurred!";
+                var httpCode = HttpStatusCode.InternalServerError;
+                // bussiness logic execute from here;
                 if (ex is BusinessLogicException)
                 {
                     errorMessage = ex.Message;
+                    httpCode = HttpStatusCode.BadRequest;
                 }
                 await HandleExceptionAsync(
                     httpContext,
-                    HttpStatusCode.InternalServerError,
+                    httpCode,
                     errorMessage
                 );
             }
