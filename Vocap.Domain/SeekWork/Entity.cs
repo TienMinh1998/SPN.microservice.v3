@@ -8,6 +8,7 @@ public class Entity
     private int? _requestedHashCode;
     private int _Id;
 
+    public DateTime CreatedUtcDate { get; set; } = DateTime.UtcNow;
     public virtual int Id
     {
         get

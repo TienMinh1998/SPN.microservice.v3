@@ -3,7 +3,6 @@ using DatabaseCore.Domain.Entities.Normals;
 using Hola.Api.Models;
 using Hola.Api.Service.CoursServices;
 using Hola.Core.Model;
-using Hola.GoogleCloudStorage;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
@@ -18,12 +17,12 @@ namespace Hola.Api.Controllers
     {
         private readonly ICoursService _coursService;
         private readonly IMapper _mapper;
-        public readonly IUploadFileGoogleCloudStorage _GoogleCloudStorage;
-        public CoursController(ICoursService coursService, IMapper mapper, IUploadFileGoogleCloudStorage googleCloudStorage)
+
+        public CoursController(ICoursService coursService, IMapper mapper)
         {
             this._coursService = coursService;
             _mapper = mapper;
-            _GoogleCloudStorage = googleCloudStorage;
+
         }
 
         /// <summary>
@@ -121,8 +120,6 @@ namespace Hola.Api.Controllers
                         var filePath = Path.GetTempFileName();
                         using (var stream = System.IO.File.Create(filePath))
                             await model.file.CopyToAsync(stream);
-                        var resultUrl = _GoogleCloudStorage.UploadFile(filePath, "5512421445", model.file.FileName, "credentials.json", "image", "image/jpeg");
-                        requestModel.CoursImage = resultUrl;
                         var response = await _coursService.AddAsync(requestModel);
                         return JsonResponseModel.Success(response);
                     }
@@ -164,7 +161,7 @@ namespace Hola.Api.Controllers
                     var filePath = Path.GetTempFileName();
                     using (var stream = System.IO.File.Create(filePath))
                         await model.file.CopyToAsync(stream);
-                    resultUrl = _GoogleCloudStorage.UploadFile(filePath, "5512421445", filename, "credentials.json", "image", "image/jpeg");
+
                 }
                 else
                 {

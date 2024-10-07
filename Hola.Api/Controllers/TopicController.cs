@@ -3,7 +3,6 @@ using DatabaseCore.Domain.Entities.Normals;
 using Hola.Api.Models;
 using Hola.Api.Service;
 using Hola.Core.Model;
-using Hola.GoogleCloudStorage;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,16 +19,14 @@ namespace Hola.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<TopicController> _logger;
         private readonly ITopicService _topicService;
-        public readonly IUploadFileGoogleCloudStorage _GoogleCloudStorage;
         public TopicController(IMapper mapper,
             ILogger<TopicController> logger,
-            ITopicService topicService = null,
-            IUploadFileGoogleCloudStorage googleCloudStorage = null)
+            ITopicService topicService = null
+          )
         {
             _mapper = mapper;
             _logger = logger;
             _topicService = topicService;
-            _GoogleCloudStorage = googleCloudStorage;
         }
 
         /// <summary>
@@ -117,13 +114,13 @@ namespace Hola.Api.Controllers
                 if (topic == null)
                     return JsonResponseModel.Error($" Chủ đề {model.pK_Topic_Id} không tồn tại ", 400);
 
-                if (model.file!=null)
+                if (model.file != null)
                 {
                     var filename = DateTime.Now.ToString() + model.file.FileName;
                     var filePath = Path.GetTempFileName();
                     using (var stream = System.IO.File.Create(filePath))
                         await model.file.CopyToAsync(stream);
-                    resultUrl = _GoogleCloudStorage.UploadFile(filePath, "5512421445", filename, "credentials.json", "image", "image/jpeg");
+
                 }
                 else
                 {
@@ -155,7 +152,7 @@ namespace Hola.Api.Controllers
             try
             {
                 Func<Topic, bool> lastCondition;
-                if (requestModel.courseId!=null)
+                if (requestModel.courseId != null)
                 {
                     lastCondition = m => m.FK_Course_Id == requestModel.courseId.Value;
                 }
@@ -164,7 +161,7 @@ namespace Hola.Api.Controllers
                     lastCondition = m => true;
                 }
 
-              
+
 
                 var toppics = _topicService.GetListPaged(requestModel.pageNumber, requestModel.pageSize, lastCondition, requestModel.columnSort, requestModel.isDesc);
                 toppics.currentPage = requestModel.pageNumber;

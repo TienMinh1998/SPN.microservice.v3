@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Connections;
-using Microsoft.EntityFrameworkCore.Metadata;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;

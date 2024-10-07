@@ -24,6 +24,7 @@ public class Vocabulary : Entity, IAggregateRoot
     public WorkFlow WorkFlowOfVocabulary { get; set; }
 
 
+
     /////////////////////
     ///////CONSTRUTOR 
     ////////////////////
