@@ -1,4 +1,6 @@
 ﻿using Vocap.API.Middleware;
+using Vocap.API.RabbitMessage;
+using Vocap.API.RabbitMQSender;
 using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 
 namespace Vocap.API.Application.Commands
@@ -7,7 +9,6 @@ namespace Vocap.API.Application.Commands
     {
         private readonly IVocabularyRepository _vocabularyRepository;
         private ILogger<CreateVocabularyCommandHandler> _logger;
-
         public CreateVocabularyCommandHandler(IVocabularyRepository vocabularyRepository, ILogger<CreateVocabularyCommandHandler> logger)
         {
             _vocabularyRepository = vocabularyRepository;
@@ -22,10 +23,9 @@ namespace Vocap.API.Application.Commands
                 _logger.LogInformation($"{request.Name} is available");
                 throw new BusinessLogicException("vocabulary is available");
             }
-
+            // save to database: 
             Vocabulary? newVocap = new Vocabulary(new CamVocabulary(request.Name), request.Desc);
             newVocap.UpdateWorkFromDiction();
-
             _vocabularyRepository.Add(newVocap);
             return await _vocabularyRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }

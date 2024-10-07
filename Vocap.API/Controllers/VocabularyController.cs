@@ -28,6 +28,7 @@ namespace Vocap.API.Controllers
             var createdCommand = new CreateVocabularyCommand
                 (desc: request.Desc, name: request.Name);
             await mediator.Send(createdCommand);
+
             return Ok();
         }
 
@@ -35,6 +36,7 @@ namespace Vocap.API.Controllers
         public async Task<IActionResult> GetVocabulary([FromQuery] string word)
         {
             var values = await queries.GetVocabularyAsync(word);
+
             return Ok(values);
         }
 
@@ -52,7 +54,18 @@ namespace Vocap.API.Controllers
             var message = new PaymentMessage();
             message.Name = mesage; ;
             message.CardNumber = "123123123";
-            rabbitMQMessageSender.SendMessageAsync(message, "sla_queue");
+            await rabbitMQMessageSender.SendMessageAsync<PaymentMessage>(message);
+            return Ok();
+        }
+
+
+        [HttpGet("create_vocabulary")]
+        public async Task<IActionResult> CreateVocap(string mesage)
+        {
+            var message = new PaymentMessage();
+            message.Name = mesage; ;
+            message.CardNumber = "123123123";
+            await rabbitMQMessageSender.SendMessageAsync<PaymentMessage>(message);
             return Ok();
         }
     }

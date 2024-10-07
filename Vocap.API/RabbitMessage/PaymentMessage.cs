@@ -2,6 +2,7 @@
 
 namespace Vocap.API.RabbitMessage
 {
+    [QueueName("payment_ok")]
     public class PaymentMessage : BaseMessage
     {
         public long OrderId { get; set; }

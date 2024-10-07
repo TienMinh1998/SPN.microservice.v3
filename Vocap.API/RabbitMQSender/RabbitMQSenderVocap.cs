@@ -28,8 +28,11 @@ namespace Vocap.API.RabbitMQSender
             _logger = logger;
         }
 
-        public async Task SendMessageAsync(BaseMessage message, string queueName)
+        public async Task SendMessageAsync<T>(BaseMessage message)
         {
+            // create new queue_name 
+            string queueName = RabbitExtension.GetQueueName<T>();
+
             // Retrieve a ResiliencePipelineProvider that dynamically creates and caches the resilience pipelines
             var pipelineProvider = _serviceProvider.GetRequiredService<ResiliencePipelineProvider<string>>();
             // Retrieve your resilience pipeline using the name it was registered with
@@ -56,7 +59,7 @@ namespace Vocap.API.RabbitMQSender
             {
                 WriteIndented = true,
             };
-            var json = JsonSerializer.Serialize((PaymentMessage)message, options);
+            var json = JsonSerializer.Serialize(message, options);
             var body = Encoding.UTF8.GetBytes(json);
             return body;
         }

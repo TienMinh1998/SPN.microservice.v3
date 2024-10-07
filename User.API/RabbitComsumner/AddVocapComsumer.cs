@@ -9,6 +9,8 @@ namespace User.API.RabbitComsumner
     {
         private IConnection _connection;
         private RabbitMQ.Client.IModel _channel;
+        private string queueName = "vocabulary_created_ok";
+
         public AddVocapComsumer()
         {
             var factory = new ConnectionFactory
@@ -19,7 +21,7 @@ namespace User.API.RabbitComsumner
             };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: "vocabularyqueue", false, false, true, arguments: null);
+            _channel.QueueDeclare(queue: queueName, false, false, true, arguments: null);
         }
 
 
@@ -34,7 +36,7 @@ namespace User.API.RabbitComsumner
                 Console.WriteLine($" [x] recive {message}");
             };
 
-            _channel.BasicConsume(queue: "vocabularyqueue",
+            _channel.BasicConsume(queue: queueName,
                      autoAck: false,
                      consumer: consumer);
             return Task.CompletedTask;

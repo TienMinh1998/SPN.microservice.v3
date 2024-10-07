@@ -14,7 +14,11 @@ public class AuthMiddleware : IMiddleware
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        if (!apiConfig.Active) await next(context);
+        if (apiConfig.Active == false)
+        {
+            await next(context);
+            return;
+        }
 
         if (!context.Request.Headers.TryGetValue(_headerKey, out var extractedApiKey))
         {

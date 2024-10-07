@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BF1F23FB-8DC7-4978-920D-B68D1E9EF896}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Jenkinsfile = Jenkinsfile
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DockerService", "DockerService\DockerService.csproj", "{77583D46-EC36-4D25-AB63-29C4764625D8}"
