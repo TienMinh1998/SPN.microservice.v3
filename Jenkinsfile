@@ -1,16 +1,14 @@
 ﻿pipeline {
     agent any
-
-    stages {
-        stage('Clone Repository') {
-            steps {
-                script {
-                    // Clone kho lưu trữ từ GitHub
-                    git url: 'https://github.com/TienMinh1998/SPN.microservice.v3.git', branch: 'main' // Thay đổi 'main' thành nhánh bạn muốn nếu cần
-                }
-            }
+    stages { 
+        stage('Clone') {
+            //implement pipeline code 
         }
-
-        // Bạn có thể thêm các giai đoạn khác ở đây nếu cần
+        stage('Build') {
+            //implement pipeline code 
+        }
+        stage('Test') {
+            //implement pipeline code 
+        }
     }
 }
