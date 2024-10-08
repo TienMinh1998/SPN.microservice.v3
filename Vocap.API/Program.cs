@@ -6,6 +6,7 @@ using Vocap.API.Extensions;
 using Vocap.API.Middleware;
 
 using Vocap.API.RabbitMQSender;
+using Vocap.Infrastructure.Dapper;
 
 namespace Vocap.API
 {
@@ -23,6 +24,7 @@ namespace Vocap.API
             builder.Services.AddSwaggerGen();
             builder.AppApplicationServices();
             builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQSenderVocap>();
+            builder.Services.AddScoped<IDapper, DapperBase>();
 
 
             // add consumservice

@@ -2,11 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 using Vocap.Infrastructure;
+using Vocap.Infrastructure.Dapper;
 
 namespace Vocap.API.Application.Queries
 {
-    public class VocabularyQueries(VocabularyContext context) : IVocabularyQueries
+    public class VocabularyQueries(VocabularyContext context, IDapper dapper) : IVocabularyQueries
     {
+        private readonly IDapper _dapper;
+
         public async Task<IEnumerable<VocabularyViewModel>> GetVocabularyAsync(string word)
         {
             try
@@ -25,6 +28,15 @@ namespace Vocap.API.Application.Queries
                 throw;
             }
 
+        }
+
+        public async Task<IEnumerable<VocabularyItem>> ListWork(int page, int pageSize)
+        {
+            string query = "SELECT * FROM vocap.get_paged_vocabularies(@Page, @PageSize)";
+            // Sử dụng anonymous object để truyền các tham số
+            var parameters = new { Page = page, PageSize = pageSize };
+            // Thực hiện truy vấn với Dapper
+            return await dapper.GetAllAsync<VocabularyItem>(query, parameters);
         }
 
         public async Task<VocabularyViewModel> SearchWork(string word)

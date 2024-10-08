@@ -36,7 +36,13 @@ namespace Vocap.API.Controllers
         public async Task<IActionResult> GetVocabulary([FromQuery] string word)
         {
             var values = await queries.GetVocabularyAsync(word);
+            return Ok(values);
+        }
 
+        [HttpGet("list")]
+        public async Task<IActionResult> GetList([FromQuery] int pageNumber, int pageSize)
+        {
+            var values = await queries.ListWork(pageNumber, pageSize);
             return Ok(values);
         }
 
@@ -45,7 +51,6 @@ namespace Vocap.API.Controllers
         {
             var values = await queries.SearchWork(word);
             return Ok(values);
-
         }
 
         [HttpGet("push")]
