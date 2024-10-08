@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Vocap.Domain.AggregatesModel.ListeningAggreate;
 using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 using Vocap.Domain.SeekWork;
 using Vocap.Infrastructure.EntityConfigurations;
@@ -16,6 +17,7 @@ namespace Vocap.Infrastructure
     public class VocabularyContext : DbContext, IUnitOfWork
     {
         public DbSet<Vocabulary?> Vocabularies { get; set; }
+        public DbSet<Listening?> listenings { get; set; }
 
 
         private readonly IMediator _mediator;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Vocap.API.Application.Queries;
+using Vocap.Domain.AggregatesModel.ListeningAggreate;
 using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 using Vocap.Infrastructure;
 using Vocap.Infrastructure.Repositories;
@@ -28,6 +29,9 @@ namespace Vocap.API.Extensions
 
             services.AddScoped<IVocabularyQueries, VocabularyQueries>();
             services.AddScoped<IVocabularyRepository, VocabularyRepository>();
+            services.AddScoped<IListeningRepository, ListeningRepository>();
+
+
 
         }
     }

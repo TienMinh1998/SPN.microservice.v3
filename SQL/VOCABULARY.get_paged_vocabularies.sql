@@ -1,3 +1,7 @@
+
+-- Drop the table  
+DROP FUNCTION if exists vocap.get_paged_vocabularies;
+
 -- create new pading vocap
 
 CREATE OR REPLACE FUNCTION vocap.get_paged_vocabularies(page_number INT, page_size INT)

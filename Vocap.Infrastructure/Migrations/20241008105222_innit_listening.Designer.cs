@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Vocap.Infrastructure;
@@ -11,9 +12,11 @@ using Vocap.Infrastructure;
 namespace Vocap.Infrastructure.Migrations
 {
     [DbContext(typeof(VocabularyContext))]
-    partial class VocabularyContextModelSnapshot : ModelSnapshot
+    [Migration("20241008105222_innit_listening")]
+    partial class innit_listening
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

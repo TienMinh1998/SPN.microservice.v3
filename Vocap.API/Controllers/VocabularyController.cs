@@ -63,7 +63,6 @@ namespace Vocap.API.Controllers
             return Ok();
         }
 
-
         [HttpGet("create_vocabulary")]
         public async Task<IActionResult> CreateVocap(string mesage)
         {

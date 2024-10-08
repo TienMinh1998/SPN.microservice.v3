@@ -9,7 +9,5 @@
 		<PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
 		<PackageReference Include="System.Reflection.TypeExtensions" Version="4.7.0" /></ItemGroup><ItemGroup>
   <ProjectReference Include="..\Hola.Core\Hola.Core.csproj" />
-</ItemGroup><ItemGroup>
-  <Folder Include="AggregatesModel\ListeningAggreate\" />
 </ItemGroup>
 </Project>
