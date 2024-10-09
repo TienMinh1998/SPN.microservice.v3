@@ -23,8 +23,8 @@ public class ListeningController : ControllerBase
     {
         var createdCommand = new CreateNewListeningCommand();
         createdCommand.TimeListening = request.Time;
-        await mediator.Send(createdCommand);
-        return Ok();
+        var updateResult = await mediator.Send(createdCommand);
+        return Ok(updateResult);
     }
 
 }

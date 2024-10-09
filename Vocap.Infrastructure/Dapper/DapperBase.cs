@@ -35,6 +35,23 @@ namespace Vocap.Infrastructure.Dapper
             }
         }
 
+        public async Task<T> QueryFirstAsync<T>(string query, object parameters = null)
+        {
+            try
+            {
+                using (NpgsqlConnection conn
+                       = new NpgsqlConnection(_connectionString))
+                {
+                    return await conn.QueryFirstAsync<T>(query, parameters);
+                }
+            }
+            catch (Exception)
+            {
+                //Handle the exception
+                return default; //Or however you want to handle the return
+            }
+        }
+
         public async Task<IEnumerable<T>?> GetAllAsync<T>(string query, object parameters = null)
         {
             try

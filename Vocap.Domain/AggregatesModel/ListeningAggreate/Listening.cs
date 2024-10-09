@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,5 @@ namespace Vocap.Domain.AggregatesModel.ListeningAggreate
     {
         public int TimeToListening { get; set; }
         public string TypeListening { get; set; } = "";
-
     }
 }
