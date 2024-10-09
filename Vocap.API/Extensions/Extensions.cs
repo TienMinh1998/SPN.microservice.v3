@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Vocap.API.Application.Queries;
+using Vocap.Domain.AggregatesModel.CollocationsAggreate;
 using Vocap.Domain.AggregatesModel.ListeningAggreate;
 using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 using Vocap.Infrastructure;
@@ -30,7 +31,7 @@ namespace Vocap.API.Extensions
             services.AddScoped<IVocabularyQueries, VocabularyQueries>();
             services.AddScoped<IVocabularyRepository, VocabularyRepository>();
             services.AddScoped<IListeningRepository, ListeningRepository>();
-
+            services.AddScoped<ICollocationRepository, CollocationRepository>();
 
 
         }

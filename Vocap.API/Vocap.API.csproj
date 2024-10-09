@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Commands\models\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Exceptions\" />
     <Folder Include="RabbitMQComsumer\" />

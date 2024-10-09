@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Vocap.Domain.AggregatesModel.CollocationsAggreate;
 using Vocap.Domain.AggregatesModel.ListeningAggreate;
 using Vocap.Domain.AggregatesModel.VocabularyAggreate;
 using Vocap.Domain.SeekWork;
@@ -18,6 +19,7 @@ namespace Vocap.Infrastructure
     {
         public DbSet<Vocabulary?> Vocabularies { get; set; }
         public DbSet<Listening?> listenings { get; set; }
+        public DbSet<Collocation?> Collocations { get; set; }
 
 
         private readonly IMediator _mediator;
@@ -35,8 +37,6 @@ namespace Vocap.Infrastructure
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             System.Diagnostics.Debug.WriteLine("VocabularyContext::ctor ->" + this.GetHashCode());
         }
-
-
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

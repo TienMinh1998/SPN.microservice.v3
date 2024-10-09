@@ -53,7 +53,7 @@ namespace Vocap.API.Controllers
             return Ok(values);
         }
 
-        [HttpGet("push")]
+        [HttpGet("message")]
         public async Task<IActionResult> CreateMessage(string mesage)
         {
             var message = new PaymentMessage();

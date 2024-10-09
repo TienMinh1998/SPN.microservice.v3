@@ -21,13 +21,16 @@ namespace Vocap.API.Application.Commands
             if (oldVocabulary is { })
             {
                 _logger.LogInformation($"{request.Name} is available");
-                throw new BusinessLogicException("vocabulary is available");
+                return false;
             }
-            // save to database: 
-            Vocabulary? newVocap = new Vocabulary(new CamVocabulary(request.Name), request.Desc);
-            newVocap.UpdateWorkFromDiction();
-            _vocabularyRepository.Add(newVocap);
-            return await _vocabularyRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            else
+            {
+                // save to database: 
+                Vocabulary? newVocap = new Vocabulary(new CamVocabulary(request.Name), request.Desc);
+                newVocap.UpdateWorkFromDiction();
+                _vocabularyRepository.Add(newVocap);
+                return await _vocabularyRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+            }
         }
     }
 }
